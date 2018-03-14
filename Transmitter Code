@@ -18,13 +18,13 @@ void setup() {
 }
 
 void loop(){
-  const int TC = 1;
-  const int TF = 0;
+  const int on = 1;
+  const int off = 0;
     if (digitalRead(SW1) == HIGH){
-      radio.write(&TC, sizeof(TC));
+      radio.write(&on, sizeof(on));
     }
     else{
-      radio.write(&TF, sizeof(TF));
+      radio.write(&off, sizeof(off));
     }
     
 }
