@@ -1,0 +1,30 @@
+#include <SPI.h>
+#include <nRF24L01.h>
+#include <RF24.h>
+
+const int LED = 3;
+const int SW1 = 7;
+boolean text = 0; 
+RF24 radio(9,10); // CE, CSN
+const byte address[6] = "00001";
+int SentMessage = 0;
+
+void setup() {
+  radio.begin();
+  radio.openWritingPipe(address);
+  radio.setPALevel(RF24_PA_MIN);
+  radio.stopListening();
+  pinMode(SW1, INPUT);
+}
+
+void loop(){
+  const int TC = 1;
+  const int TF = 0;
+    if (digitalRead(SW1) == HIGH){
+      radio.write(&TC, sizeof(TC));
+    }
+    else{
+      radio.write(&TF, sizeof(TF));
+    }
+    
+}
