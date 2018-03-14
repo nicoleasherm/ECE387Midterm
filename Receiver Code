@@ -4,26 +4,26 @@
 
 RF24 radio (9,10); //CE, CSN
 const byte address[6] = "00001";
-const int LED = 3;
+const int LED = 3; //defines which pin the led is wired to 
 
 void setup(){
-  pinMode(LED, OUTPUT);
+  pinMode(LED, OUTPUT); //showing that the led will be the output of the switch
   Serial.begin(9600);
   radio.begin();
   radio.openReadingPipe(0, address);
   radio.setPALevel(RF24_PA_MIN);
-  radio.startListening();
+  radio.startListening(); //turns on radio 
 }
 
 void loop(){
-  if (radio.available()) {
+  if (radio.available()) { //recognizes second chip 
     int text;
-    radio.read(&text, sizeof(text));
+    radio.read(&text, sizeof(text)); //reads the text coming in 
     if(text == 1){
-      digitalWrite(LED, HIGH);
+      digitalWrite(LED, HIGH); //if the text is 1 the led will turn on 
     }
     else{
-      digitalWrite(LED, LOW);
+      digitalWrite(LED, LOW); //if text is not equal to one, the led will remain turned off 
       Serial.println(text);
     }
   }
