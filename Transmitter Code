@@ -3,25 +3,25 @@
 #include <RF24.h>
 
 const int LED = 3;
-const int SW1 = 7;
+const int SW1 = 7; //defines which pin the switch is wired to 
 boolean text = 0; 
 RF24 radio(9,10); // CE, CSN
 const byte address[6] = "00001";
-int SentMessage = 0;
+int SentMessage = 0; //original message before switch is on 
 
 void setup() {
-  radio.begin();
+  radio.begin(); //starts radio so other chip can detect it 
   radio.openWritingPipe(address);
   radio.setPALevel(RF24_PA_MIN);
   radio.stopListening();
-  pinMode(SW1, INPUT);
+  pinMode(SW1, INPUT); //defines the switch as the input 
 }
 
 void loop(){
-  const int on = 1;
+  const int on = 1; //if equals one led turns on 
   const int off = 0;
     if (digitalRead(SW1) == HIGH){
-      radio.write(&on, sizeof(on));
+      radio.write(&on, sizeof(on)); //reads switch and sends message of 1 to receiver 
     }
     else{
       radio.write(&off, sizeof(off));
